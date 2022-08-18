@@ -13,7 +13,6 @@ namespace TitanAPI.Encryption
 
 		public static string Encrypt(byte[] inputBytes)
 		{
-			string text = null;
 			try
 			{
 				byte[] array = null;
@@ -38,7 +37,6 @@ namespace TitanAPI.Encryption
 
 		public static string Decrypt(string encrypted)
 		{
-			string text = null;
 			byte[] array = null;
 			try
 			{

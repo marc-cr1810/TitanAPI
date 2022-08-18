@@ -13,6 +13,7 @@ namespace TitanAPI.Web
         [SoapDocumentMethod("http://tempuri.org/LogonAuthentication", RequestNamespace = "http://tempuri.org/", ResponseNamespace = "http://tempuri.org/", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Wrapped)]
         public string LogonAuthentication(string logonID, string password, string userMachine, string dealerIDStr, string currentLanguage, string clientUtcOffset, string windowsIdentity, int employeeLogonKey)
         {
+            Console.WriteLine("AuthenticationWebService: Sent login request");
             return (string)Invoke("LogonAuthentication", new object[8] { logonID, password, userMachine, dealerIDStr, currentLanguage, clientUtcOffset, windowsIdentity, employeeLogonKey })[0];
         }
     }

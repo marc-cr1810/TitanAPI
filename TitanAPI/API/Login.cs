@@ -39,21 +39,28 @@ namespace TitanAPI.API
             int num3 = ((Screen.AllScreens != null) ? Screen.AllScreens.Length : (-1));
             string machine = string.Concat(Environment.MachineName, ";", version, ";", text, ";", Environment.ProcessorCount, ";", computerInfo.TotalPhysicalMemory / 1024uL / 1024uL, ";", Assembly.GetEntryAssembly().GetName().Name, ";", num, ";", num2, ";", num3);
 
-            TimeSpan utcOffset = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now);
-            authentication.Url = WebService.GetWebServerEndpoint("Authentication");
-            authentication.Timeout = 1000000;
-            authentication.KeepAlive = true;
+            try
+            {
+                TimeSpan utcOffset = TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now);
+                authentication.Url = WebService.GetWebServerEndpoint("Authentication");
+                authentication.Timeout = 1000000;
+                authentication.KeepAlive = true;
 
-            string logonResponse = authentication.LogonAuthentication(CustomEncryption.Encrypt(userid),
-                CustomEncryption.Encrypt(password),
-                CustomEncryption.Encrypt(machine),
-                CustomEncryption.Encrypt(dealerid),
-                string.Empty,
-                utcOffset.Ticks.ToString(),
-                CustomEncryption.Encrypt(WindowsIdentity.GetCurrent().Name),
-                -1);
+                string logonResponse = authentication.LogonAuthentication(CustomEncryption.Encrypt(userid),
+                    CustomEncryption.Encrypt(password),
+                    CustomEncryption.Encrypt(machine),
+                    CustomEncryption.Encrypt(dealerid),
+                    string.Empty,
+                    utcOffset.Ticks.ToString(),
+                    CustomEncryption.Encrypt(WindowsIdentity.GetCurrent().Name),
+                    -1);
 
-            return logonResponse;
+                return logonResponse;
+            }
+            catch
+            {
+                return "Invalid login";
+            }
         }
     }
 }
